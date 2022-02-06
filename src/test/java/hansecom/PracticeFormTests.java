@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -56,16 +57,16 @@ public class PracticeFormTests extends TestBase {
             $("#currentAddress").setValue("Minsk, 220117");
         });
         step("выбираем штат и город", () -> {
-                    $("#state").scrollTo().click();
+            $("#state").scrollTo().click();
 
-                    $("#state").$(byText("NCR")).click();
+            $("#state").$(byText("NCR")).click();
 
-                    $("#city").click();
+            $("#city").click();
 
-                    $("#city").$(byText("Delhi")).click();
+            $("#city").$(byText("Delhi")).click();
 
-                    $("#submit").click();
-                });
+            $("#submit").click();
+        });
         step("делаем проверку", () -> {
             SelenideElement table = $(".modal-body").$("table").$("tbody");
             Assertions.assertEquals("Veronika Padgok", table.$("tr:nth-child(1)").
@@ -100,3 +101,5 @@ public class PracticeFormTests extends TestBase {
 
     }
 }
+
+
