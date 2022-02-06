@@ -13,20 +13,11 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class TestBase {
     @BeforeAll
     static void setUp() {
-       SelenideLogger.addListener("AllureSelenide", new AllureSelenide());  // листенер аллюра
-
-        String browser = System.getProperty("browser");
-        String version = System.getProperty("version");
-        String login = System.getProperty("login","user1");
-        String password = System.getProperty("password","1234");
-        String url = System.getProperty("url");
-        String remoteUrl = "https://" + login + ":" + password + "@" + url;
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());  // листенер аллюра
 
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
-        Configuration.browser = browser;
-        Configuration.browserVersion = version;
-        Configuration.remote = remoteUrl;
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true); //видели что происходит
@@ -35,8 +26,8 @@ public class TestBase {
         // в блоке DesiredCapabilities конфигурируем удаленный запуск
     }
 
-   @AfterEach
-   void addAttachments() {
+    @AfterEach
+    void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();
